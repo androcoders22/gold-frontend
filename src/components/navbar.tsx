@@ -19,7 +19,12 @@ import {
   ShoppingCart as CartIcon,
 } from "@mui/icons-material";
 
-function Navbar() {
+interface NavbarProps {
+  rtl: boolean;
+  onToggleDirection: () => void;
+}
+
+function Navbar({ rtl, onToggleDirection }: NavbarProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => () => {
@@ -70,14 +75,23 @@ function Navbar() {
             <IconButton color="primary">
               <CartIcon />
             </IconButton>
-            <Button variant="outlined" size="small" color="primary">
-              العربية
+            <Button
+              variant="outlined"
+              size="small"
+              color="primary"
+              onClick={onToggleDirection}
+            >
+              {rtl ? "English" : "العربية"}
             </Button>
           </Box>
         </Toolbar>
       </AppBar>
       {/* Drawer for burger menu */}
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor={rtl ? "right" : "left"}
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+      >
         <Box
           sx={{ width: 250 }}
           role="presentation"
