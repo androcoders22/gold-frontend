@@ -5,6 +5,7 @@ import rtlCache from "./rtlCache";
 import defaultCache from "./emotionCache";
 import { useState, useEffect } from "react";
 import Navbar from "./components/navbar.tsx";
+import "./utils/i18n";
 
 function App() {
   const [rtl, setRtl] = useState(false);

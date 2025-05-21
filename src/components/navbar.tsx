@@ -18,6 +18,7 @@ import {
   Person as PersonIcon,
   ShoppingCart as CartIcon,
 } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 interface NavbarProps {
   rtl: boolean;
@@ -26,9 +27,11 @@ interface NavbarProps {
 
 function Navbar({ rtl, onToggleDirection }: NavbarProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { t, i18n } = useTranslation();
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
+    console.log("Language changed to:", i18n.language);
   };
 
   return (
@@ -37,11 +40,11 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
         position="static"
         color="transparent"
         // elevation={0}
-        sx={{ px: 8 }}
+        sx={{ px: 8, borderBottom: "1px solid #FFD500" }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           {/* Left side - Burger menu */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <IconButton
               size="large"
               edge="start"
@@ -51,8 +54,11 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h4" color="primary">
-              Fine Gold Jewellery
+            <Typography
+              sx={{ fontWeight: "semibold", fontSize: "2rem" }}
+              color="primary"
+            >
+              {t("title")}
             </Typography>
           </Box>
           {/* Middle - Website name and logo */}
@@ -77,17 +83,31 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             </IconButton>
             <Button
               variant="outlined"
-              size="small"
               color="primary"
-              onClick={onToggleDirection}
+              onClick={() => {
+                const newLang = i18n.language === "en" ? "ar" : "en";
+                i18n.changeLanguage(newLang).then(() => {
+                  console.log("Language changed to:", i18n.language);
+                  onToggleDirection();
+                });
+              }}
             >
-              {rtl ? "English" : "العربية"}
+              {t("languageToggle")}
             </Button>
           </Box>
         </Toolbar>
       </AppBar>
       {/* Drawer for burger menu */}
       <Drawer
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "black",
+              color: "#FFD500",
+              width: 250,
+            },
+          },
+        }}
         anchor={rtl ? "right" : "left"}
         open={drawerOpen}
         onClose={toggleDrawer(false)}
@@ -98,10 +118,10 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
           onClick={toggleDrawer(false)}
         >
           <List>
-            {["Home", "Products", "About", "Contact"].map((text) => (
+            {["welcome", "products", "about", "contact"].map((text) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={t(text)} />
                 </ListItemButton>
               </ListItem>
             ))}
