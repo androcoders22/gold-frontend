@@ -152,15 +152,6 @@ export const products: ProductData[] = [
     category: "swiss",
   },
   {
-    id: "5",
-    name: "20 Gm Valcambi Swiss Gold Bar",
-    weight: "20 Gram",
-    price: "666.940 KD",
-    image: "https://placehold.co/650x400/black/white?text=20g+Gold",
-    isNew: true,
-    category: "swiss",
-  },
-  {
     id: "6",
     name: "250 Gm Uae Gold Bar",
     weight: "250 Gram",

@@ -27,6 +27,8 @@ interface NavbarProps {
 
 function Navbar({ rtl, onToggleDirection }: NavbarProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false); // Dropdown state
+  const [priceCalcOpen, setPriceCalcOpen] = useState(false); // Price Calculator dropdown
   const { t, i18n } = useTranslation();
 
   const toggleDrawer = (open: boolean) => () => {
@@ -151,17 +153,65 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             </ListItem>
             {/* Shop (expandable) */}
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => setShopOpen((prev) => !prev)}>
                 <ListItemText
                   primary={<span style={{ color: "#fff" }}>{t("Shop")}</span>}
                 />
                 <span
                   style={{ color: "#e2a23b", fontWeight: "bold", fontSize: 18 }}
                 >
-                  +
+                  {shopOpen ? "-" : "+"}
                 </span>
               </ListItemButton>
             </ListItem>
+            {shopOpen && (
+              <Box sx={{ pl: 4 }}>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        <span style={{ color: "#FFD500" }}>
+                          {t("Swiss Gold Bar")}
+                        </span>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        <span style={{ color: "#FFD500" }}>
+                          {t("Uae Gold Bar")}
+                        </span>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        <span style={{ color: "#FFD500" }}>
+                          {t("Lerah Coins")}
+                        </span>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        <span style={{ color: "#FFD500" }}>
+                          {t("Silver Bar")}
+                        </span>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </Box>
+            )}
             {/* My-Account (expandable) */}
             <ListItem disablePadding>
               <ListItemButton>
@@ -170,16 +220,11 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
                     <span style={{ color: "#fff" }}>{t("My-Account")}</span>
                   }
                 />
-                <span
-                  style={{ color: "#e2a23b", fontWeight: "bold", fontSize: 18 }}
-                >
-                  +
-                </span>
               </ListItemButton>
             </ListItem>
             {/* Price Calculator (expandable) */}
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => setPriceCalcOpen((prev) => !prev)}>
                 <ListItemText
                   primary={
                     <span style={{ color: "#fff" }}>
@@ -190,10 +235,34 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
                 <span
                   style={{ color: "#e2a23b", fontWeight: "bold", fontSize: 18 }}
                 >
-                  +
+                  {priceCalcOpen ? "-" : "+"}
                 </span>
               </ListItemButton>
             </ListItem>
+            {priceCalcOpen && (
+              <Box sx={{ pl: 4 }}>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        <span style={{ color: "#FFD500" }}>{t("Gold")}</span>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        <span style={{ color: "#FFD500" }}>
+                          {t("Silver / Platinum")}
+                        </span>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </Box>
+            )}
             {/* Faq */}
             <ListItem disablePadding>
               <ListItemButton>

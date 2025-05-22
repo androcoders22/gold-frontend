@@ -32,6 +32,9 @@ function App() {
       secondary: { main: "#AA00FF" },
       background: { default: "#121212", paper: "#1e1e1e" },
     },
+    typography: {
+      fontFamily: 'Noto Kufi Arabic, Roboto, Arial, sans-serif',
+    },
   });
 
   return (

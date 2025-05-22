@@ -12,7 +12,7 @@ function PromoSection() {
         px: 15,
       }}
     >
-      {/* YouTube Background Video */}
+      {/* Local Background Video */}
       <Box
         sx={{
           position: "absolute",
@@ -26,11 +26,12 @@ function PromoSection() {
         }}
       >
         <Box
-          component="iframe"
-          src="https://www.youtube.com/embed/bEbgBCUvEkE?autoplay=1&mute=1&controls=0&loop=1&playlist=bEbgBCUvEkE&modestbranding=1&showinfo=0&rel=0"
-          title="YouTube video background"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
+          component="video"
+          src="/hero-video.webm"
+          autoPlay
+          muted
+          loop
+          playsInline
           sx={{
             position: "absolute",
             top: "50%",
@@ -40,6 +41,7 @@ function PromoSection() {
             minWidth: "100%",
             minHeight: "100%",
             transform: "translate(-50%, -50%)",
+            objectFit: "cover",
             border: 0,
             pointerEvents: "none",
           }}
