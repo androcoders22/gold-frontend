@@ -6,9 +6,9 @@ import defaultCache from "./emotionCache";
 import { useState, useEffect } from "react";
 import Navbar from "./components/navbar.tsx";
 import "./utils/i18n";
-import ProductTabs from "./components/home/Products/product-tabs.tsx";
-import PromoSection from "./components/home/Products/promo-section.tsx";
-import GraphSection from "./components/home/graph-section.tsx";
+import AuthRoutes from "./AuthRoutes";
+import { BrowserRouter as Router } from "react-router-dom";
+import { AuthProvider } from "./AuthContext";
 import Footer from "./components/home/footer.tsx";
 
 function App() {
@@ -33,21 +33,22 @@ function App() {
       background: { default: "#121212", paper: "#1e1e1e" },
     },
     typography: {
-      fontFamily: 'Noto Kufi Arabic, Roboto, Arial, sans-serif',
+      fontFamily: "Noto Kufi Arabic, Roboto, Arial, sans-serif",
     },
   });
 
   return (
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
-        {/* Local direction wrapper */}
-        <div dir={rtl ? "rtl" : "ltr"}>
-          <Navbar rtl={rtl} onToggleDirection={() => setRtl(!rtl)} />
-          <PromoSection />
-          <GraphSection />
-          <ProductTabs />
-          <Footer />
-        </div>
+        <AuthProvider>
+          <div dir={rtl ? "rtl" : "ltr"}>
+            <Router>
+              <Navbar rtl={rtl} onToggleDirection={() => setRtl(!rtl)} />
+              <AuthRoutes />
+              <Footer />
+            </Router>
+          </div>
+        </AuthProvider>
       </ThemeProvider>
     </CacheProvider>
   );

@@ -11,6 +11,8 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -19,6 +21,14 @@ import {
   ShoppingCart as CartIcon,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
+// Add global type for handleLogout
+declare global {
+  interface Window {
+    handleLogout?: () => void;
+  }
+}
 
 interface NavbarProps {
   rtl: boolean;
@@ -29,11 +39,37 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false); // Dropdown state
   const [priceCalcOpen, setPriceCalcOpen] = useState(false); // Price Calculator dropdown
+  const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(
+    null
+  );
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
     console.log("Language changed to:", i18n.language);
+  };
+
+  const handleUserMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setUserMenuAnchor(event.currentTarget);
+  };
+
+  const handleUserMenuClose = () => {
+    setUserMenuAnchor(null);
+  };
+
+  const SESSION_KEY = "finegold_token";
+  const isAuthenticated = Boolean(localStorage.getItem(SESSION_KEY));
+
+  // Accept logout function from window for now (will be set in App)
+  const handleLogout = () => {
+    if (typeof window.handleLogout === "function") {
+      window.handleLogout();
+    } else {
+      localStorage.removeItem(SESSION_KEY);
+      window.location.reload();
+    }
+    handleUserMenuClose();
   };
 
   return (
@@ -77,9 +113,41 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             <IconButton color="primary">
               <SearchIcon />
             </IconButton>
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={handleUserMenuOpen}>
               <PersonIcon />
             </IconButton>
+            <Menu
+              anchorEl={userMenuAnchor}
+              open={Boolean(userMenuAnchor)}
+              onClose={handleUserMenuClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+              {isAuthenticated ? (
+                <MenuItem onClick={handleLogout}>{t("Logout")}</MenuItem>
+              ) : (
+                [
+                  <MenuItem
+                    key="login"
+                    onClick={() => {
+                      handleUserMenuClose();
+                      navigate("/login");
+                    }}
+                  >
+                    {t("Login")}
+                  </MenuItem>,
+                  <MenuItem
+                    key="register"
+                    onClick={() => {
+                      handleUserMenuClose();
+                      navigate("/register");
+                    }}
+                  >
+                    {t("Register")}
+                  </MenuItem>,
+                ]
+              )}
+            </Menu>
             <IconButton color="primary">
               <CartIcon />
             </IconButton>
