@@ -40,9 +40,9 @@ function App() {
         {/* Local direction wrapper */}
         <div dir={rtl ? "rtl" : "ltr"}>
           <Navbar rtl={rtl} onToggleDirection={() => setRtl(!rtl)} />
+          <PromoSection />
           <GraphSection />
           <ProductTabs />
-          <PromoSection />
           <Footer />
         </div>
       </ThemeProvider>
