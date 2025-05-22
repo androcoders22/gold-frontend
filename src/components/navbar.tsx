@@ -21,7 +21,7 @@ import {
   ShoppingCart as CartIcon,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Add global type for handleLogout
 declare global {
@@ -148,7 +148,16 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
                 ]
               )}
             </Menu>
-            <IconButton color="primary">
+            <IconButton
+              color="primary"
+              onClick={() => {
+                if (isAuthenticated) {
+                  navigate("/cart");
+                } else {
+                  navigate("/login");
+                }
+              }}
+            >
               <CartIcon />
             </IconButton>
             <Button
@@ -210,15 +219,17 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
           </Box>
           {/* Menu Items */}
           <List sx={{ flexGrow: 1 }}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText
-                  primary={
-                    <span style={{ color: "#e2a23b" }}>{t("Home")}</span>
-                  }
-                />
-              </ListItemButton>
-            </ListItem>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText
+                    primary={
+                      <span style={{ color: "#e2a23b" }}>{t("Home")}</span>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
             {/* Shop (expandable) */}
             <ListItem disablePadding>
               <ListItemButton onClick={() => setShopOpen((prev) => !prev)}>
@@ -234,50 +245,58 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             </ListItem>
             {shopOpen && (
               <Box sx={{ pl: 4 }}>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={
-                        <span style={{ color: "#FFD500" }}>
-                          {t("Swiss Gold Bar")}
-                        </span>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={
-                        <span style={{ color: "#FFD500" }}>
-                          {t("Uae Gold Bar")}
-                        </span>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={
-                        <span style={{ color: "#FFD500" }}>
-                          {t("Lerah Coins")}
-                        </span>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={
-                        <span style={{ color: "#FFD500" }}>
-                          {t("Silver Bar")}
-                        </span>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
+                <Link to="/shop" style={{ textDecoration: "none" }}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemText
+                        primary={
+                          <span style={{ color: "#FFD500" }}>
+                            {t("Swiss Gold Bar")}
+                          </span>
+                        }
+                      />
+                    </ListItemButton>
+                  </ListItem>{" "}
+                </Link>{" "}
+                <Link to="/shop" style={{ textDecoration: "none" }}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemText
+                        primary={
+                          <span style={{ color: "#FFD500" }}>
+                            {t("Uae Gold Bar")}
+                          </span>
+                        }
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>{" "}
+                <Link to="/shop" style={{ textDecoration: "none" }}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemText
+                        primary={
+                          <span style={{ color: "#FFD500" }}>
+                            {t("Lerah Coins")}
+                          </span>
+                        }
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>{" "}
+                <Link to="/shop" style={{ textDecoration: "none" }}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemText
+                        primary={
+                          <span style={{ color: "#FFD500" }}>
+                            {t("Silver Bar")}
+                          </span>
+                        }
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
               </Box>
             )}
             {/* My-Account (expandable) */}

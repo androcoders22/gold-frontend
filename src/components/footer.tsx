@@ -43,7 +43,6 @@ function Footer() {
     <Paper
       sx={{
         backgroundColor: "background.paper",
-        mt: 8,
         pt: 6,
         pb: 2,
         px: { xs: 2, md: 8 },

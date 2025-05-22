@@ -61,8 +61,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           alt={product.name}
           sx={{
             borderRadius: 1,
-            objectFit: "contain",
-            backgroundColor: "background.paper", // use theme background.paper
+            objectFit: "cover",
+            backgroundColor: "background.paper",
           }}
         />
       </Box>

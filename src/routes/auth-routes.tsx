@@ -7,7 +7,7 @@ import LoginPage from "../pages/login-page";
 import RegisterPage from "../pages/register-page";
 import Cart from "../pages/cart";
 import { useAuth } from "../context/auth-context";
-
+import ShopPage from "../pages/shop";
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
@@ -34,6 +34,14 @@ function AuthRoutes() {
             <PromoSection />
             <GraphSection />
             <ProductTabs />
+          </>
+        }
+      />
+      <Route
+        path="/shop"
+        element={
+          <>
+            <ShopPage />
           </>
         }
       />

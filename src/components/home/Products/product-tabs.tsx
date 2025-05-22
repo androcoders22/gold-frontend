@@ -22,7 +22,8 @@ function ProductTabs() {
       elevation={0}
       sx={{
         px: 14,
-        py: 4,
+        pt: 4,
+        pb: 10,
         backgroundColor: "transparent",
         borderRadius: 0,
       }}
