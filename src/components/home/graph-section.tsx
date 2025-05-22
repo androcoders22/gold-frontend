@@ -1,6 +1,6 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { goldData } from "../../data/goldData";
-import GoldPriceHighChart from "./GoldPriceHighChart";
+import GoldPriceHighChart from "./gold-price-chart";
 import { useTranslation } from "react-i18next";
 
 const GoldAndSilverBox = () => {

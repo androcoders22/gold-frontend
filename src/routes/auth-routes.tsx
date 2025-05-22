@@ -1,12 +1,12 @@
 import { type ReactNode } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import PromoSection from "./components/home/Products/promo-section";
-import GraphSection from "./components/home/graph-section";
-import ProductTabs from "./components/home/Products/product-tabs";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
-import Cart from "./pages/cart";
-import { useAuth } from "./AuthContext";
+import PromoSection from "../components/home/Products/promo-section";
+import GraphSection from "../components/home/graph-section";
+import ProductTabs from "../components/home/Products/product-tabs";
+import LoginPage from "../pages/login-page";
+import RegisterPage from "../pages/register-page";
+import Cart from "../pages/cart";
+import { useAuth } from "../context/auth-context";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();

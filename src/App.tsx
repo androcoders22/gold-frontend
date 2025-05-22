@@ -1,15 +1,15 @@
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
-import rtlCache from "./rtlCache";
-import defaultCache from "./emotionCache";
+import rtlCache from "./utils/rtlCache.ts";
+import defaultCache from "./utils/emotionCache.ts";
 import { useState, useEffect } from "react";
 import Navbar from "./components/navbar.tsx";
 import "./utils/i18n";
-import AuthRoutes from "./AuthRoutes";
+import AuthRoutes from "./routes/auth-routes.tsx";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./AuthContext";
-import Footer from "./components/home/footer.tsx";
+import { AuthProvider } from "./context/auth-context.tsx";
+import Footer from "./components/footer.tsx";
 
 function App() {
   const [rtl, setRtl] = useState(false);
