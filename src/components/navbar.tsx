@@ -37,10 +37,10 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
   return (
     <>
       <AppBar
-        position="static"
-        color="transparent"
-        // elevation={0}
-        sx={{ px: 8, borderBottom: "1px solid #FFD500" }}
+        position="sticky"
+        color="inherit"
+        elevation={0}
+        sx={{ px: 8, borderBottom: "1px solid #FFD500", top: 0, zIndex: 1200 }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           {/* Left side - Burger menu */}
