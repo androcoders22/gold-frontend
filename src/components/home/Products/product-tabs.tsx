@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Box, Typography, Tabs, Tab, Grid, Paper } from "@mui/material";
 import ProductCard from "./product-card";
 import { products } from "../../../data/goldData";
+import { useTranslation } from "react-i18next";
 
-const ProductTabs: React.FC = () => {
+function ProductTabs() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<string>("swiss");
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: string) => {
@@ -57,10 +59,10 @@ const ProductTabs: React.FC = () => {
             },
           }}
         >
-          <Tab value="swiss" label="Swiss Gold Bar" />
-          <Tab value="uae" label="UAE Gold Bar" />
-          <Tab value="lebah" label="Lebah Coins" />
-          <Tab value="silver" label="Silver Bar" />
+          <Tab value="swiss" label={t("Swiss Gold Bar")} />
+          <Tab value="uae" label={t("UAE Gold Bar")} />
+          <Tab value="lebah" label={t("Lebah Coins")} />
+          <Tab value="silver" label={t("Silver Bar")} />
         </Tabs>
       </Box>
 
@@ -81,6 +83,6 @@ const ProductTabs: React.FC = () => {
       </Grid>
     </Paper>
   );
-};
+}
 
 export default ProductTabs;

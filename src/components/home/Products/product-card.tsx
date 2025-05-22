@@ -11,12 +11,15 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import type { ProductData } from "../../../data/goldData";
+import { useTranslation } from "react-i18next";
 
 interface ProductCardProps {
   product: ProductData;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { t } = useTranslation();
+
   return (
     <Card
       sx={{
@@ -98,7 +101,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               <ShoppingCartIcon />
             </IconButton>
             <Button variant="outlined" size="medium" color="primary">
-              Buy Now
+              {t("Buy Now")}
             </Button>
           </Box>
         </Box>

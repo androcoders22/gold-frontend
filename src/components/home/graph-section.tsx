@@ -1,8 +1,11 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { goldData } from "../../data/goldData";
 import GoldPriceHighChart from "./GoldPriceHighChart";
+import { useTranslation } from "react-i18next";
 
 const GoldAndSilverBox = () => {
+  const { t } = useTranslation();
+
   return (
     <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
       <Paper
@@ -21,7 +24,7 @@ const GoldAndSilverBox = () => {
         }}
       >
         <Typography variant="h6" sx={{ mb: 1, color: "#FFD700" }}>
-          Price per ounce
+          {t("Price per ounce")}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}>
           <Box
@@ -42,10 +45,10 @@ const GoldAndSilverBox = () => {
           </Box>
           <Box>
             <Typography variant="subtitle2" sx={{ color: "#fff" }}>
-              GOLD
+              {t("GOLD")}
             </Typography>
             <Typography variant="caption" sx={{ color: "#B0B0B0" }}>
-              CFDS ON GOLD (US$ / OZ)
+              {t("CFDS ON GOLD (US$ / OZ)")}
             </Typography>
           </Box>
         </Box>
@@ -68,15 +71,14 @@ const GoldAndSilverBox = () => {
           borderRadius: 2,
           p: 2,
           color: "#FFD700",
-          minHeight: 140,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          justifyContent: "center",
+          // justifyContent: "center",
         }}
       >
         <Typography variant="h6" sx={{ color: "#FFD700", mb: 1 }}>
-          Silver Kilo
+          {t("Silver Kilo")}
         </Typography>
         <Typography variant="h5" sx={{ color: "#fff", fontWeight: "bold" }}>
           365.054 KD
@@ -90,6 +92,7 @@ const GoldAndSilverBox = () => {
 };
 
 const GoldPricesTable = () => {
+  const { t } = useTranslation();
   const last = goldData.last_tow[0];
   const prices = [
     { label: "24K", value: last["24k"], color: "#ffe066" },
@@ -100,7 +103,7 @@ const GoldPricesTable = () => {
   return (
     <Box sx={{ mt: 2, mb: 3 }}>
       <Typography variant="h6" sx={{ color: "#FFD700", mb: 1 }}>
-        Gold Prices
+        {t("Gold Prices")}
       </Typography>
       {prices.map((p) => (
         <Box

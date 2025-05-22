@@ -1,12 +1,12 @@
 import { Box, Typography, Button, Stack } from "@mui/material";
-
+import { useTranslation } from "react-i18next";
 function PromoSection() {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
         py: 5,
         px: 15,
-        backgroundColor: "background.default", // use theme background
       }}
     >
       <Box>
@@ -19,7 +19,7 @@ function PromoSection() {
             textTransform: "uppercase",
           }}
         >
-          Exclusive Offer
+          {t("Exclusive Offer")}
         </Typography>
         <Typography
           variant="h2"
@@ -30,17 +30,17 @@ function PromoSection() {
             textTransform: "uppercase",
           }}
         >
-          FINE GOLD
+          {t("FINE GOLD")}
         </Typography>
         <Typography variant="body1" sx={{ color: "#B0B0B0", mb: 4 }}>
-          BEST GOLD WITH FINE GOLD
+          {t("BEST GOLD WITH FINE GOLD")}
         </Typography>
         <Stack spacing={3}>
           <Typography
             variant="h3"
             sx={{ color: "#FFD700", fontWeight: "bold" }}
           >
-            10 Gram
+            {t("10 Gram")}
           </Typography>
           <Button
             variant="contained"
@@ -48,7 +48,7 @@ function PromoSection() {
             size="large"
             sx={{ maxWidth: 180, fontWeight: "bold" }}
           >
-            SHOP NOW
+            {t("SHOP NOW")}
           </Button>
         </Stack>
       </Box>

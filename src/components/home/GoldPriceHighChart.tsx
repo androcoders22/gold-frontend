@@ -1,5 +1,6 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { useTranslation } from "react-i18next";
 
 const mockCategories = [
   "00:00",
@@ -46,65 +47,67 @@ const mockSeries = [
   },
 ];
 
-const options: Highcharts.Options = {
-  chart: {
-    type: "area",
-    backgroundColor: "background.paper",
-    style: { fontFamily: "inherit" },
-    borderRadius: 10,
-    spacing: [20, 20, 20, 20],
-  },
-  title: {
-    text: "Gold Price Trend (Last 24 Hours)",
-    style: { color: "#FFD700", fontWeight: "bold", fontSize: "1.3rem" },
-  },
-  xAxis: {
-    categories: mockCategories,
-    labels: { style: { color: "#B0B0B0", fontWeight: "500" } },
-    title: { text: "Time (hrs)", style: { color: "#FFD700" } },
-    gridLineColor: "#222",
-    lineColor: "#FFD700",
-    tickColor: "#FFD700",
-  },
-  yAxis: {
-    title: { text: "Price (KD)", style: { color: "#FFD700" } },
-    labels: { style: { color: "#B0B0B0" } },
-    gridLineColor: "#222",
-    min: 45,
-    max: 65,
-  },
-  legend: {
-    itemStyle: { color: "#FFD700", fontWeight: "600" },
-    itemHoverStyle: { color: "#fff" },
-    align: "center",
-    verticalAlign: "top",
-    layout: "horizontal",
-  },
-  tooltip: {
-    backgroundColor: "#101c2c",
-    borderColor: "#FFD700",
-    style: { color: "#fff" },
-    shared: true,
-    valueSuffix: " KD",
-  },
-  series: mockSeries as Highcharts.SeriesOptionsType[],
-  plotOptions: {
-    area: {
-      marker: {
-        enabled: true,
-        symbol: "circle",
-        radius: 4,
-        fillColor: "#fff",
-        lineWidth: 2,
-      },
-      lineWidth: 3,
-      fillOpacity: 0.15,
-    },
-  },
-  credits: { enabled: false },
-};
-
 const GoldPriceHighChart = () => {
+  const { t } = useTranslation();
+
+  const options: Highcharts.Options = {
+    chart: {
+      type: "area",
+      backgroundColor: "background.paper",
+      style: { fontFamily: "inherit" },
+      borderRadius: 10,
+      spacing: [20, 20, 20, 20],
+    },
+    title: {
+      text: t("Gold Price Trend (Last 24 Hours)"),
+      style: { color: "#FFD700", fontWeight: "bold", fontSize: "1.3rem" },
+    },
+    xAxis: {
+      categories: mockCategories,
+      labels: { style: { color: "#B0B0B0", fontWeight: "500" } },
+      title: { text: t("Time (hrs)"), style: { color: "#FFD700" } },
+      gridLineColor: "#222",
+      lineColor: "#FFD700",
+      tickColor: "#FFD700",
+    },
+    yAxis: {
+      title: { text: t("Price (KD)"), style: { color: "#FFD700" } },
+      labels: { style: { color: "#B0B0B0" } },
+      gridLineColor: "#222",
+      min: 45,
+      max: 65,
+    },
+    legend: {
+      itemStyle: { color: "#FFD700", fontWeight: "600" },
+      itemHoverStyle: { color: "#fff" },
+      align: "center",
+      verticalAlign: "top",
+      layout: "horizontal",
+    },
+    tooltip: {
+      backgroundColor: "#101c2c",
+      borderColor: "#FFD700",
+      style: { color: "#fff" },
+      shared: true,
+      valueSuffix: " KD",
+    },
+    series: mockSeries as Highcharts.SeriesOptionsType[],
+    plotOptions: {
+      area: {
+        marker: {
+          enabled: true,
+          symbol: "circle",
+          radius: 4,
+          fillColor: "#fff",
+          lineWidth: 2,
+        },
+        lineWidth: 3,
+        fillOpacity: 0.15,
+      },
+    },
+    credits: { enabled: false },
+  };
+
   return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 

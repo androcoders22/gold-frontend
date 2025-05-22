@@ -19,22 +19,26 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
-const customProducts = [
-  {
-    image: "https://placehold.co/60x60/gold/black?text=Coin",
-    name: "36 GM MUKAMMAS",
-    weight: "36 Gram",
-    rating: 5,
-  },
-  {
-    image: "https://placehold.co/60x60/orange/black?text=Bar",
-    name: "2.5 GM VALCAMBI SWISS GOLD BAR",
-    weight: "2.5 Gram",
-    rating: 5,
-  },
-];
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+  const { t } = useTranslation();
+
+  const customProducts = [
+    {
+      image: "https://placehold.co/60x60/gold/black?text=Coin",
+      name: t("36 GM MUKAMMAS"),
+      weight: t("36 Gram"),
+      rating: 5,
+    },
+    {
+      image: "https://placehold.co/60x60/orange/black?text=Bar",
+      name: t("2.5 GM VALCAMBI SWISS GOLD BAR"),
+      weight: t("2.5 Gram"),
+      rating: 5,
+    },
+  ];
+
   return (
     <Paper
       sx={{
@@ -54,23 +58,23 @@ function Footer() {
           {[
             {
               icon: <LocalShippingIcon fontSize="large" />,
-              title: "Secure Shipping",
-              subtitle: "Secure Shipping Ways",
+              title: t("Secure Shipping"),
+              subtitle: t("Secure Shipping Ways"),
             },
             {
               icon: <CheckCircleIcon fontSize="large" />,
-              title: "Best Service",
-              subtitle: "Best Service Ever",
+              title: t("Best Service"),
+              subtitle: t("Best Service Ever"),
             },
             {
               icon: <LoyaltyIcon fontSize="large" />,
-              title: "Member Discount",
-              subtitle: "Big Discounts",
+              title: t("Member Discount"),
+              subtitle: t("Big Discounts"),
             },
             {
               icon: <SupportAgentIcon fontSize="large" />,
-              title: "Online Support",
-              subtitle: "Support online 24 hours a day",
+              title: t("Online Support"),
+              subtitle: t("Support online 24 hours a day"),
             },
           ].map((item, i) => (
             <Grid size={{ xs: 6, md: 3 }} key={i} textAlign="center">
@@ -114,25 +118,25 @@ function Footer() {
                   variant="h6"
                   sx={{ color: "#FFD700", fontWeight: 700 }}
                 >
-                  Fine Gold Jewelry & Precious Metal Co.
+                  {t("Fine Gold Jewelry & Precious Metal Co.")}
                 </Typography>
               </Box>
               <Box>
                 <Typography sx={{ color: "#B0B0B0", fontSize: 15 }}>
-                  Address: 123 Gold Avenue
+                  {t("Address")}: 123 {t("Gold Avenue")}
                   <br />
-                  Luxury District
+                  {t("Luxury District")}
                   <br />
-                  Suite 100, Building A
+                  {t("Suite 100, Building A")}
                 </Typography>
                 <Typography sx={{ color: "#B0B0B0", fontSize: 15, mt: 1 }}>
-                  Phone: (123) 456-7890
+                  {t("Phone")}: (123) 456-7890
                   <br />
-                  Fax: (123) 456-7891
+                  {t("Fax")}: (123) 456-7891
                   <br />
-                  Mobile: (123) 456-7892
+                  {t("Mobile")}: (123) 456-7892
                   <br />
-                  Email: contact@finegold.example.com
+                  {t("Email")}: contact@finegold.example.com
                 </Typography>
               </Box>
               <Box>
@@ -160,17 +164,17 @@ function Footer() {
               variant="h6"
               sx={{ color: "#fff", mb: 1, fontWeight: 600 }}
             >
-              Information
+              {t("Information")}
             </Typography>
             <Stack spacing={0.5}>
               {[
-                "About Us",
-                "Delivery Information",
-                "Privacy Policy",
-                "Terms & Conditions",
-                "Gift Certificates",
-                "Contact Us",
-                "Prices Screen",
+                t("About Us"),
+                t("Delivery Information"),
+                t("Privacy Policy"),
+                t("Terms & Conditions"),
+                t("Gift Certificates"),
+                t("Contact Us"),
+                t("Prices Screen"),
               ].map((text) => (
                 <Link
                   key={text}
@@ -188,10 +192,10 @@ function Footer() {
               variant="h6"
               sx={{ color: "#fff", mb: 1, fontWeight: 600 }}
             >
-              Extras
+              {t("Extras")}
             </Typography>
             <Stack spacing={0.5}>
-              {["Specials", "My Account"].map((text) => (
+              {[t("Specials"), t("My Account")].map((text) => (
                 <Link
                   key={text}
                   href="#"
@@ -209,7 +213,7 @@ function Footer() {
               variant="h6"
               sx={{ color: "#fff", mb: 1, fontWeight: 600 }}
             >
-              Custom Products
+              {t("Custom Products")}
             </Typography>
             <Stack spacing={2}>
               {customProducts.map((prod, i) => (
@@ -267,14 +271,14 @@ function Footer() {
           }}
         >
           {[
-            "Home",
-            "Shop",
-            "Privacy Policy",
-            "Terms Of Use",
-            "Sitemap",
-            "Support",
-            "Contacts",
-            "Prices Screen",
+            t("Home"),
+            t("Shop"),
+            t("Privacy Policy"),
+            t("Terms Of Use"),
+            t("Sitemap"),
+            t("Support"),
+            t("Contacts"),
+            t("Prices Screen"),
           ].map((text) => (
             <Link
               key={text}
@@ -289,11 +293,8 @@ function Footer() {
         <Typography
           sx={{ color: "#B0B0B0", textAlign: "center", fontSize: 14 }}
         >
-          © Copyright {new Date().getFullYear()}. All Rights Reserved. Powered
-          by{" "}
-          <Box component="span" sx={{ color: "#FFD700", fontWeight: 500 }}>
-            ANDROCODERS
-          </Box>
+          {t("Copyright")}
+          <br />
         </Typography>
       </Box>
     </Paper>

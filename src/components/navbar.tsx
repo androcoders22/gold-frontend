@@ -104,7 +104,10 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             sx: {
               backgroundColor: "black",
               color: "#FFD500",
-              width: 250,
+              width: 300,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             },
           },
         }}
@@ -113,19 +116,141 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
         onClose={toggleDrawer(false)}
       >
         <Box
-          sx={{ width: 250 }}
-          role="presentation"
-          onClick={toggleDrawer(false)}
+          sx={{
+            width: 300,
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+          }}
         >
-          <List>
-            {["welcome", "products", "about", "contact"].map((text) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemText primary={t(text)} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+          {/* Logo */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              py: 3,
+            }}
+          >
+            <img
+              src="https://www.finegoldkwt.com/FineLogoNew.png"
+              alt="Logo"
+              style={{ height: 80 }}
+            />
+          </Box>
+          {/* Menu Items */}
+          <List sx={{ flexGrow: 1 }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={
+                    <span style={{ color: "#e2a23b" }}>{t("Home")}</span>
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+            {/* Shop (expandable) */}
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={<span style={{ color: "#fff" }}>{t("Shop")}</span>}
+                />
+                <span
+                  style={{ color: "#e2a23b", fontWeight: "bold", fontSize: 18 }}
+                >
+                  +
+                </span>
+              </ListItemButton>
+            </ListItem>
+            {/* My-Account (expandable) */}
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={
+                    <span style={{ color: "#fff" }}>{t("My-Account")}</span>
+                  }
+                />
+                <span
+                  style={{ color: "#e2a23b", fontWeight: "bold", fontSize: 18 }}
+                >
+                  +
+                </span>
+              </ListItemButton>
+            </ListItem>
+            {/* Price Calculator (expandable) */}
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={
+                    <span style={{ color: "#fff" }}>
+                      {t("Price Calculator")}
+                    </span>
+                  }
+                />
+                <span
+                  style={{ color: "#e2a23b", fontWeight: "bold", fontSize: 18 }}
+                >
+                  +
+                </span>
+              </ListItemButton>
+            </ListItem>
+            {/* Faq */}
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={<span style={{ color: "#fff" }}>{t("Faq")}</span>}
+                />
+              </ListItemButton>
+            </ListItem>
+            {/* About Us */}
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={
+                    <span style={{ color: "#fff" }}>{t("About Us")}</span>
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+            {/* Contact Us */}
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText
+                  primary={
+                    <span style={{ color: "#fff" }}>{t("Contact Us")}</span>
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
           </List>
+          {/* Social Icons and Copyright */}
+          <Box sx={{ px: 2, pb: 2, pt: 1 }}>
+            <Box
+              sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 1 }}
+            >
+              <a href="#" style={{ color: "#FFD500" }}>
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="#" style={{ color: "#FFD500" }}>
+                <i className="fab fa-google-plus-g"></i>
+              </a>
+              <a href="#" style={{ color: "#FFD500" }}>
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" style={{ color: "#FFD500" }}>
+                <i className="fab fa-youtube"></i>
+              </a>
+              <a href="#" style={{ color: "#FFD500" }}>
+                <i className="fab fa-instagram"></i>
+              </a>
+            </Box>
+            <Typography
+              variant="body2"
+              sx={{ color: "#FFD500", textAlign: "center", fontSize: 13 }}
+            >
+              {t("Copyright")}
+            </Typography>
+          </Box>
         </Box>
       </Drawer>
     </>
