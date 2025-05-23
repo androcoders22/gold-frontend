@@ -11,6 +11,7 @@ import ShopPage from "../pages/shop";
 import FaqPage from "../pages/Faq";
 import AboutUsPage from "../pages/AboutUs";
 import ContactUsPage from "../pages/ContactUs";
+import MyAccountPage from "../pages/MyAccount"; // Import the My Account page
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -65,6 +66,8 @@ function AuthRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route path="/my-account" element={<MyAccountPage />} />{" "}
+      {/* My Account route */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

@@ -220,17 +220,11 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
           </Box>
           {/* Menu Items */}
           <List sx={{ flexGrow: 1 }}>
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemText
-                    primary={
-                      <span style={{ color: "#e2a23b" }}>{t("Home")}</span>
-                    }
-                  />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+            <ListItem disablePadding>
+              <ListItemButton component={RouterLink} to="/">
+                <ListItemText primary={t("Home")} />
+              </ListItemButton>
+            </ListItem>
             {/* Shop (expandable) */}
             <ListItem disablePadding>
               <ListItemButton onClick={() => setShopOpen((prev) => !prev)}>
@@ -302,12 +296,8 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             )}
             {/* My-Account (expandable) */}
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText
-                  primary={
-                    <span style={{ color: "#fff" }}>{t("My-Account")}</span>
-                  }
-                />
+              <ListItemButton component={RouterLink} to="/my-account">
+                <ListItemText primary={t("My-Account")} />
               </ListItemButton>
             </ListItem>
             {/* Price Calculator (expandable) */}
