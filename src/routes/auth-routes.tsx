@@ -8,6 +8,10 @@ import RegisterPage from "../pages/register-page";
 import Cart from "../pages/cart";
 import { useAuth } from "../context/auth-context";
 import ShopPage from "../pages/shop";
+import FaqPage from "../pages/Faq";
+import AboutUsPage from "../pages/AboutUs";
+import ContactUsPage from "../pages/ContactUs";
+
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
@@ -45,6 +49,9 @@ function AuthRoutes() {
           </>
         }
       />
+      <Route path="/faq" element={<FaqPage />} />
+      <Route path="/about-us" element={<AboutUsPage />} />
+      <Route path="/contact-us" element={<ContactUsPage />} />
       <Route
         path="/login"
         element={<LoginPage onLogin={login} loading={isLoading} />}

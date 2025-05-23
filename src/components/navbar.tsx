@@ -22,6 +22,7 @@ import {
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom"; // Added import
 
 // Add global type for handleLogout
 declare global {
@@ -352,30 +353,20 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
             )}
             {/* Faq */}
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText
-                  primary={<span style={{ color: "#fff" }}>{t("Faq")}</span>}
-                />
+              <ListItemButton component={RouterLink} to="/faq">
+                <ListItemText primary={t("Faq")} />
               </ListItemButton>
             </ListItem>
             {/* About Us */}
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText
-                  primary={
-                    <span style={{ color: "#fff" }}>{t("About Us")}</span>
-                  }
-                />
+              <ListItemButton component={RouterLink} to="/about-us">
+                <ListItemText primary={t("About Us")} />
               </ListItemButton>
             </ListItem>
             {/* Contact Us */}
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText
-                  primary={
-                    <span style={{ color: "#fff" }}>{t("Contact Us")}</span>
-                  }
-                />
+              <ListItemButton component={RouterLink} to="/contact-us">
+                <ListItemText primary={t("Contact Us")} />
               </ListItemButton>
             </ListItem>
           </List>
