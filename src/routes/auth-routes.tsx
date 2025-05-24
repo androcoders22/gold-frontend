@@ -13,6 +13,7 @@ import AboutUsPage from "../pages/about-us";
 import ContactUsPage from "../pages/contact-us";
 import MyAccountPage from "../pages/my-account";
 import CalculatorPage from "../pages/calculator";
+import DashboardPage from "../pages/dashboard"; // Import the DashboardPage
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -67,8 +68,22 @@ function AuthRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route path="/my-account" element={<MyAccountPage />} />{" "}
-      {/* My Account route */}
+      <Route
+        path="/my-account"
+        element={
+          <ProtectedRoute>
+            <MyAccountPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/calculator" element={<CalculatorPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
