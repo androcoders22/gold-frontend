@@ -39,7 +39,6 @@ interface NavbarProps {
 function Navbar({ rtl, onToggleDirection }: NavbarProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false); // Dropdown state
-  const [priceCalcOpen, setPriceCalcOpen] = useState(false); // Price Calculator dropdown
   const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(
     null
   );
@@ -106,7 +105,7 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
               component="img"
               src="https://www.finegoldkwt.com/FineLogoNew.png"
               alt="Logo"
-              sx={{ m: 2, height: 70 }}
+              sx={{ m: 2, height: 50 }}
             />
           </Box>{" "}
           {/* Right side - Icons and language button */}
@@ -300,47 +299,12 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
                 <ListItemText primary={t("My-Account")} />
               </ListItemButton>
             </ListItem>
-            {/* Price Calculator (expandable) */}
+            {/* Price Calculator - Direct Link */}
             <ListItem disablePadding>
-              <ListItemButton onClick={() => setPriceCalcOpen((prev) => !prev)}>
-                <ListItemText
-                  primary={
-                    <span style={{ color: "#fff" }}>
-                      {t("Price Calculator")}
-                    </span>
-                  }
-                />
-                <span
-                  style={{ color: "#e2a23b", fontWeight: "bold", fontSize: 18 }}
-                >
-                  {priceCalcOpen ? "-" : "+"}
-                </span>
+              <ListItemButton component={RouterLink} to="/calculator">
+                <ListItemText primary={t("Price Calculator")} />
               </ListItemButton>
             </ListItem>
-            {priceCalcOpen && (
-              <Box sx={{ pl: 4 }}>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={
-                        <span style={{ color: "#FFD500" }}>{t("Gold")}</span>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={
-                        <span style={{ color: "#FFD500" }}>
-                          {t("Silver / Platinum")}
-                        </span>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Box>
-            )}
             {/* Faq */}
             <ListItem disablePadding>
               <ListItemButton component={RouterLink} to="/faq">

@@ -9,9 +9,10 @@ import Cart from "../pages/cart";
 import { useAuth } from "../context/auth-context";
 import ShopPage from "../pages/shop";
 import FaqPage from "../pages/Faq";
-import AboutUsPage from "../pages/AboutUs";
-import ContactUsPage from "../pages/ContactUs";
-import MyAccountPage from "../pages/MyAccount"; // Import the My Account page
+import AboutUsPage from "../pages/about-us";
+import ContactUsPage from "../pages/contact-us";
+import MyAccountPage from "../pages/my-account";
+import CalculatorPage from "../pages/calculator";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -68,6 +69,7 @@ function AuthRoutes() {
       />
       <Route path="/my-account" element={<MyAccountPage />} />{" "}
       {/* My Account route */}
+      <Route path="/calculator" element={<CalculatorPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
