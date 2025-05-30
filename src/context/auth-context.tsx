@@ -1,74 +1,41 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  type ReactNode,
-} from "react";
+import React, { createContext, useContext, type ReactNode } from "react";
+import useAuthStatus, { type User } from "../hooks/useAuthStatus";
+import useLogin from "../hooks/mutations/useLogin";
+import useLogout from "../hooks/mutations/useLogout";
+import { getToken } from "../utils/tokenStorage";
+import type { LoginInput } from "../schemas/login";
 
 interface AuthContextType {
-  token: string | null;
+  user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
   isLoading: boolean;
+  token: string | null;
+  login: (data: LoginInput) => void;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const AUTH_EMAIL = "admin@gmail.com";
-const AUTH_PASS = "123456";
-const SESSION_KEY = "finegold_token";
-
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { login, isLoading: isLoginLoading } = useLogin();
+  const { logout, isLoading: isLogoutLoading } = useLogout();
+  const { data: authData, isLoading: isAuthLoading } = useAuthStatus();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem(SESSION_KEY);
-    if (storedToken) {
-      setToken(storedToken);
-    }
-    setIsLoading(false);
-  }, []);
-
-  const login = async (email: string, password: string) => {
-    setIsLoading(true);
-    // Simulate API call
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
-        if (email === AUTH_EMAIL && password === AUTH_PASS) {
-          const dummyToken = "dummy_token_from_context";
-          localStorage.setItem(SESSION_KEY, dummyToken);
-          setToken(dummyToken);
-          setIsLoading(false);
-          resolve();
-        } else {
-          setIsLoading(false);
-          reject(new Error("Invalid credentials"));
-        }
-      }, 500);
-    });
+  const value = {
+    user: authData?.user ?? null,
+    isAuthenticated: authData?.isAuthenticated ?? false,
+    isLoading: isLoginLoading || isLogoutLoading || isAuthLoading,
+    token: getToken(),
+    login,
+    logout,
   };
 
-  const logout = () => {
-    localStorage.removeItem(SESSION_KEY);
-    setToken(null);
-  };
-
-  const isAuthenticated = !!token;
-
-  return (
-    <AuthContext.Provider
-      value={{ token, isAuthenticated, login, logout, isLoading }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {

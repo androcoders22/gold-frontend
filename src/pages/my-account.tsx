@@ -130,8 +130,8 @@ const MyAccountPage: React.FC = () => {
 
               {/* Profile information */}
               <Grid container spacing={3}>
-                <Grid size={{ xs: 12, md: 6 }} >
-                  <Typography variant="subtitle1" >
+                <Grid size={{ xs: 12, md: 6 }}>
+                  <Typography variant="subtitle1">
                     {t("Profile name")}
                   </Typography>
                   <TextField
@@ -145,9 +145,7 @@ const MyAccountPage: React.FC = () => {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography variant="subtitle1" >
-                    {t("Username")}
-                  </Typography>
+                  <Typography variant="subtitle1">{t("Username")}</Typography>
                   <Box sx={{ position: "relative" }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <TextField
@@ -168,7 +166,7 @@ const MyAccountPage: React.FC = () => {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography variant="subtitle1" >
+                  <Typography variant="subtitle1">
                     {t("Main phone number")}
                   </Typography>
                   <TextField
@@ -184,7 +182,7 @@ const MyAccountPage: React.FC = () => {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography variant="subtitle1" >
+                  <Typography variant="subtitle1">
                     {t("Secondary phone number")}
                   </Typography>
                   <TextField
@@ -200,9 +198,7 @@ const MyAccountPage: React.FC = () => {
                 </Grid>
 
                 <Grid size={{ xs: 6 }}>
-                  <Typography variant="subtitle1" >
-                    {t("Address")}
-                  </Typography>
+                  <Typography variant="subtitle1">{t("Address")}</Typography>
                   <TextField
                     fullWidth
                     multiline
@@ -218,9 +214,7 @@ const MyAccountPage: React.FC = () => {
                 </Grid>
 
                 <Grid size={{ xs: 6 }}>
-                  <Typography variant="subtitle1" >
-                    {t("About me")}
-                  </Typography>
+                  <Typography variant="subtitle1">{t("About me")}</Typography>
                   <TextField
                     fullWidth
                     multiline

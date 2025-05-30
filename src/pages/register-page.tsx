@@ -1,23 +1,26 @@
-import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, type RegisterInput } from "../schemas/register";
+import useRegister from "../hooks/mutations/useRegister";
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterInput>({
+    resolver: zodResolver(registerSchema),
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-    // Registration logic placeholder
-    alert("Registration successful (dummy)");
+  const { register: apiRegister } = useRegister();
+
+  const onSubmit = (data: RegisterInput) => {
+    apiRegister(data);
   };
 
   return (
@@ -39,38 +42,38 @@ export default function RegisterPage() {
             Register
           </Typography>
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             style={{ display: "flex", flexDirection: "column", gap: 18 }}
           >
             <TextField
+              {...register("email")}
               type="email"
               label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
               variant="outlined"
               size="medium"
               autoComplete="email"
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
             <TextField
+              {...register("password")}
               type="password"
               label="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
               variant="outlined"
               size="medium"
               autoComplete="new-password"
+              error={!!errors.password}
+              helperText={errors.password?.message}
             />
             <TextField
+              {...register("confirmPassword")}
               type="password"
               label="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
               variant="outlined"
               size="medium"
               autoComplete="new-password"
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword?.message}
             />
             <Button
               type="submit"

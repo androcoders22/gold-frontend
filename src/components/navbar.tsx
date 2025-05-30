@@ -23,6 +23,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom"; // Added import
+import { useAuth } from "../context/auth-context";
 
 // Add global type for handleLogout
 declare global {
@@ -40,7 +41,7 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false); // Dropdown state
   const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(
-    null
+    null,
   );
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -58,17 +59,11 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
     setUserMenuAnchor(null);
   };
 
-  const SESSION_KEY = "finegold_token";
-  const isAuthenticated = Boolean(localStorage.getItem(SESSION_KEY));
+  const { logout, isAuthenticated } = useAuth();
 
   // Accept logout function from window for now (will be set in App)
   const handleLogout = () => {
-    if (typeof window.handleLogout === "function") {
-      window.handleLogout();
-    } else {
-      localStorage.removeItem(SESSION_KEY);
-      window.location.reload();
-    }
+    logout();
     handleUserMenuClose();
   };
 

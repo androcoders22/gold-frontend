@@ -9,7 +9,9 @@ import "./utils/i18n";
 import AuthRoutes from "./routes/auth-routes.tsx";
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/auth-context.tsx";
+import { NotificationProvider } from "./context/notification-context.tsx";
 import Footer from "./components/footer.tsx";
+import QueryProvider from "./context/query-context.tsx";
 
 interface LayoutManagerProps {
   rtl: boolean;
@@ -61,13 +63,20 @@ function App() {
   return (
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <div dir={rtl ? "rtl" : "ltr"}>
-            <Router>
-              <LayoutManager rtl={rtl} onToggleDirection={() => setRtl(!rtl)} />
-            </Router>
-          </div>
-        </AuthProvider>
+        <div dir={rtl ? "rtl" : "ltr"}>
+          <NotificationProvider>
+            <QueryProvider>
+              <Router>
+                <AuthProvider>
+                  <LayoutManager
+                    rtl={rtl}
+                    onToggleDirection={() => setRtl(!rtl)}
+                  />
+                </AuthProvider>
+              </Router>
+            </QueryProvider>
+          </NotificationProvider>
+        </div>
       </ThemeProvider>
     </CacheProvider>
   );
