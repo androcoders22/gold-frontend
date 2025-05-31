@@ -1,5 +1,5 @@
 // filepath: c:\Users\Admin\Desktop\fine-gold\src\pages\MyAccount.tsx
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -13,39 +13,48 @@ import {
   Divider,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { profileSchema, type ProfileInput } from "../schemas/profile";
 import { useAuth } from "../context/auth-context";
+import { useProfile } from "../hooks/mutations/useProfile";
 import OrderHistory from "../components/my-account/order-history";
 
 const MyAccountPage: React.FC = () => {
   const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
 
-  // User profile data
-  const [profileData, setProfileData] = useState({
-    name: "",
-    username: "",
-    status: "",
-    aboutMe: "",
-    profilePicture: "https://via.placeholder.com/150", // Placeholder image
-    mainPhone: "",
-    secondaryPhone: "",
-    address: "",
+  const { profile, updateProfile, isUpdating } = useProfile();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<ProfileInput>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: "",
+      username: "",
+      aboutMe: "",
+      profilePicture: "",
+      mainPhone: "",
+      secondaryPhone: "",
+      address: "",
+    },
   });
 
   // For username availability - only example, not functional
   const usernameChangeDate = "25/04/2024";
 
-  const handleFieldChange = (field: string, value: string) => {
-    setProfileData({
-      ...profileData,
-      [field]: value,
-    });
-  };
+  useEffect(() => {
+    if (profile) {
+      reset(profile);
+    }
+  }, [profile, reset]);
 
-  const handleSaveChanges = () => {
-    // In a real application, you would save the changes to a backend
-    console.log("Saving profile changes:", profileData);
-    alert(t("Profile updated successfully"));
+  const onSubmit = (data: ProfileInput) => {
+    console.log("Profile data submitted:", data);
+    updateProfile(data);
   };
 
   const handlePictureUpload = () => {
@@ -55,10 +64,7 @@ const MyAccountPage: React.FC = () => {
   };
 
   const handleRemovePicture = () => {
-    // In a real application, this would remove the profile picture
-    console.log("Remove picture clicked");
-    setProfileData({
-      ...profileData,
+    updateProfile({
       profilePicture: "",
     });
   };
@@ -90,7 +96,10 @@ const MyAccountPage: React.FC = () => {
               <Box sx={{ mb: 3 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                   <Avatar
-                    src={profileData.profilePicture}
+                    src={
+                      profile?.profilePicture ||
+                      "https://via.placeholder.com/150"
+                    }
                     sx={{
                       width: 80,
                       height: 80,
@@ -129,122 +138,123 @@ const MyAccountPage: React.FC = () => {
               <Divider sx={{ my: 1 }} />
 
               {/* Profile information */}
-              <Grid container spacing={3}>
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography variant="subtitle1">
-                    {t("Profile name")}
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    value={profileData.name}
-                    onChange={(e) => handleFieldChange("name", e.target.value)}
-                    variant="outlined"
-                    size="small"
-                    sx={{ backgroundColor: "#1E1E1E" }}
-                  />
-                </Grid>
-
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography variant="subtitle1">{t("Username")}</Typography>
-                  <Box sx={{ position: "relative" }}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <TextField
-                        fullWidth
-                        value={profileData.username}
-                        onChange={(e) =>
-                          handleFieldChange("username", e.target.value)
-                        }
-                        variant="outlined"
-                        size="small"
-                        sx={{ backgroundColor: "#1E1E1E" }}
-                      />
-                    </Box>
-                    <Typography variant="caption" color="text.secondary">
-                      {t("Available change in")} {usernameChangeDate}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={3}>
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <Typography variant="subtitle1">
+                      {t("Profile name")}
                     </Typography>
-                  </Box>
+                    <TextField
+                      fullWidth
+                      {...register("name")}
+                      error={!!errors.name}
+                      helperText={errors.name?.message}
+                      variant="outlined"
+                      size="small"
+                      sx={{ backgroundColor: "#1E1E1E" }}
+                    />
+                  </Grid>
+
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <Typography variant="subtitle1">{t("Username")}</Typography>
+                    <Box sx={{ position: "relative" }}>
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <TextField
+                          fullWidth
+                          {...register("username")}
+                          error={!!errors.username}
+                          helperText={errors.username?.message}
+                          variant="outlined"
+                          size="small"
+                          sx={{ backgroundColor: "#1E1E1E" }}
+                        />
+                      </Box>
+                      <Typography variant="caption" color="text.secondary">
+                        {t("Available change in")} {usernameChangeDate}
+                      </Typography>
+                    </Box>
+                  </Grid>
+
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <Typography variant="subtitle1">
+                      {t("Main phone number")}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      {...register("mainPhone")}
+                      error={!!errors.mainPhone}
+                      helperText={errors.mainPhone?.message}
+                      variant="outlined"
+                      size="small"
+                      sx={{ backgroundColor: "#1E1E1E" }}
+                    />
+                  </Grid>
+
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <Typography variant="subtitle1">
+                      {t("Secondary phone number")}
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      {...register("secondaryPhone")}
+                      error={!!errors.secondaryPhone}
+                      helperText={errors.secondaryPhone?.message}
+                      variant="outlined"
+                      size="small"
+                      sx={{ backgroundColor: "#1E1E1E" }}
+                    />
+                  </Grid>
+
+                  <Grid size={{ xs: 6 }}>
+                    <Typography variant="subtitle1">{t("Address")}</Typography>
+                    <TextField
+                      fullWidth
+                      multiline
+                      rows={2}
+                      {...register("address")}
+                      error={!!errors.address}
+                      helperText={errors.address?.message}
+                      variant="outlined"
+                      sx={{ backgroundColor: "#1E1E1E" }}
+                      size="small"
+                    />
+                  </Grid>
+
+                  <Grid size={{ xs: 6 }}>
+                    <Typography variant="subtitle1">{t("About me")}</Typography>
+                    <TextField
+                      fullWidth
+                      multiline
+                      rows={2}
+                      {...register("aboutMe")}
+                      error={!!errors.aboutMe}
+                      helperText={errors.aboutMe?.message}
+                      variant="outlined"
+                      sx={{ backgroundColor: "#1E1E1E" }}
+                      size="small"
+                    />
+                  </Grid>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography variant="subtitle1">
-                    {t("Main phone number")}
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    value={profileData.mainPhone}
-                    onChange={(e) =>
-                      handleFieldChange("mainPhone", e.target.value)
-                    }
-                    variant="outlined"
-                    size="small"
-                    sx={{ backgroundColor: "#1E1E1E" }}
-                  />
-                </Grid>
-
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography variant="subtitle1">
-                    {t("Secondary phone number")}
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    value={profileData.secondaryPhone}
-                    onChange={(e) =>
-                      handleFieldChange("secondaryPhone", e.target.value)
-                    }
-                    variant="outlined"
-                    size="small"
-                    sx={{ backgroundColor: "#1E1E1E" }}
-                  />
-                </Grid>
-
-                <Grid size={{ xs: 6 }}>
-                  <Typography variant="subtitle1">{t("Address")}</Typography>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={2}
-                    value={profileData.address}
-                    onChange={(e) =>
-                      handleFieldChange("address", e.target.value)
-                    }
-                    variant="outlined"
-                    sx={{ backgroundColor: "#1E1E1E" }}
-                    size="small"
-                  />
-                </Grid>
-
-                <Grid size={{ xs: 6 }}>
-                  <Typography variant="subtitle1">{t("About me")}</Typography>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={2}
-                    value={profileData.aboutMe}
-                    onChange={(e) =>
-                      handleFieldChange("aboutMe", e.target.value)
-                    }
-                    variant="outlined"
-                    sx={{ backgroundColor: "#1E1E1E" }}
-                    size="small"
-                  />
-                </Grid>
-              </Grid>
-
-              <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSaveChanges}
-                  sx={{
-                    px: 3,
-                    py: 1,
-                    borderRadius: 2,
-                  }}
+                <Box
+                  sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}
                 >
-                  {t("Save changes")}
-                </Button>
-              </Box>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    disabled={isUpdating || !isDirty}
+                    sx={{
+                      px: 3,
+                      py: 1,
+                      borderRadius: 2,
+                    }}
+                  >
+                    {isUpdating ? t("Saving...") : t("Save changes")}
+                  </Button>
+                </Box>
+              </form>
             </Paper>
           </Box>
         </Grid>

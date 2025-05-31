@@ -19,7 +19,7 @@ function useLogin() {
       });
 
       // Store token from response
-      setToken(res.data.access_token);
+      setToken(res.data.token);
       return res.data;
     },
     onSuccess: () => {
