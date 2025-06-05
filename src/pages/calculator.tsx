@@ -21,12 +21,12 @@ import { useTheme } from "@mui/material/styles";
 
 // Placeholder prices (KWD per gram)
 const goldPricesKWD = {
-  "24K": 20.0,
-  "22K": 18.5,
-  "21K": 17.5,
-  "18K": 15.0,
+  "24K": 33.325,
+  "22K": 30.559,
+  "21K": 29.159,
+  "18K": 25.994,
 };
-const silverPriceKWDPerGram = 0.25;
+const silverPriceKWDPerGram = 0.34;
 const OUNCE_TO_GRAM = 28.3495;
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
@@ -60,14 +60,14 @@ const CalculatorPage: React.FC = () => {
   const [goldCarat, setGoldCarat] = useState<keyof typeof goldPricesKWD>("24K");
   const [goldWeight, setGoldWeight] = useState<string>("");
   const [goldWeightUnit, setGoldWeightUnit] = useState<"gram" | "ounce">(
-    "gram"
+    "gram",
   );
   const [goldPrice, setGoldPrice] = useState<number | null>(null);
 
   // Silver Calculator State
   const [silverWeight, setSilverWeight] = useState<string>("");
   const [silverWeightUnit, setSilverWeightUnit] = useState<"gram" | "ounce">(
-    "gram"
+    "gram",
   );
   const [silverPrice, setSilverPrice] = useState<number | null>(null);
 
@@ -195,7 +195,7 @@ const CalculatorPage: React.FC = () => {
                     value={goldCarat}
                     label="Carat"
                     onChange={(
-                      e: SelectChangeEvent<keyof typeof goldPricesKWD>
+                      e: SelectChangeEvent<keyof typeof goldPricesKWD>,
                     ) =>
                       setGoldCarat(e.target.value as keyof typeof goldPricesKWD)
                     }
@@ -271,7 +271,7 @@ const CalculatorPage: React.FC = () => {
                     fontWeight: "bold",
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.getContrastText(
-                      theme.palette.primary.main
+                      theme.palette.primary.main,
                     ),
                     "&:hover": {
                       backgroundColor: theme.palette.primary.dark,
@@ -299,7 +299,7 @@ const CalculatorPage: React.FC = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      {goldPrice.toFixed(2)} KWD
+                      {goldPrice.toFixed(3)} KWD
                     </span>
                   </Typography>
                 </Grid>
@@ -357,7 +357,7 @@ const CalculatorPage: React.FC = () => {
                     fontWeight: "bold",
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.getContrastText(
-                      theme.palette.primary.main
+                      theme.palette.primary.main,
                     ),
                     "&:hover": {
                       backgroundColor: theme.palette.primary.dark,
@@ -385,7 +385,7 @@ const CalculatorPage: React.FC = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      {silverPrice.toFixed(2)} KWD
+                      {silverPrice.toFixed(3)} KWD
                     </span>
                   </Typography>
                 </Grid>
