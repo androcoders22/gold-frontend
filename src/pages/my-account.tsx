@@ -39,7 +39,6 @@ const MyAccountPage: React.FC = () => {
       name: "",
       username: "",
       aboutMe: "",
-      profilePicture: "",
       mainPhone: "",
       secondaryPhone: "",
       address: "",
@@ -70,16 +69,26 @@ const MyAccountPage: React.FC = () => {
     updateProfile(data);
   };
 
+  const {
+    handleFileSelect,
+    previewUrl,
+    selectedFile,
+    updatePicture,
+    clearSelection,
+    isUpdatingPicture,
+  } = useProfile();
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
   const handlePictureUpload = () => {
-    // In a real application, this would open a file dialog
-    console.log("Picture upload clicked");
-    // For this example, we'll just use a placeholder image
+    fileInputRef.current?.click();
   };
 
-  const handleRemovePicture = () => {
-    updateProfile({
-      profilePicture: "",
-    });
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleFileSelect(file);
+    }
   };
 
   if (!isAuthenticated) {
@@ -112,9 +121,18 @@ const MyAccountPage: React.FC = () => {
           {/* Profile picture section */}
           <Box sx={{ mb: 3 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+                accept="image/png, image/jpeg"
+              />
               <Avatar
                 src={
-                  profile?.profilePicture || "https://via.placeholder.com/150"
+                  previewUrl ||
+                  profile?.imageUrl ||
+                  "https://via.placeholder.com/150"
                 }
                 sx={{
                   width: 80,
@@ -123,30 +141,49 @@ const MyAccountPage: React.FC = () => {
                 }}
               />
               <Stack direction="row" spacing={1}>
-                <Button
-                  variant="contained"
-                  onClick={handlePictureUpload}
-                  sx={{
-                    backgroundColor: "primary.main",
-                    "&:hover": { backgroundColor: "primary.dark" },
-                  }}
-                >
-                  {t("Change picture")}
-                </Button>
-                <Button
-                  variant="outlined"
-                  onClick={handleRemovePicture}
-                  sx={{
-                    borderColor: "error.main",
-                    color: "error.main",
-                    "&:hover": {
-                      backgroundColor: "error.main",
-                      color: "white",
-                    },
-                  }}
-                >
-                  {t("Remove picture")}
-                </Button>
+                {selectedFile ? (
+                  <>
+                    <Button
+                      variant="contained"
+                      onClick={() => updatePicture()}
+                      disabled={isUpdatingPicture}
+                      sx={{
+                        backgroundColor: "success.main",
+                        "&:hover": { backgroundColor: "success.dark" },
+                      }}
+                    >
+                      {t("Confirm")}
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={clearSelection}
+                      disabled={isUpdatingPicture}
+                      sx={{
+                        borderColor: "error.main",
+                        color: "error.main",
+                        "&:hover": {
+                          backgroundColor: "error.main",
+                          color: "white",
+                        },
+                      }}
+                    >
+                      {t("Cancel")}
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="contained"
+                      onClick={handlePictureUpload}
+                      sx={{
+                        backgroundColor: "primary.main",
+                        "&:hover": { backgroundColor: "primary.dark" },
+                      }}
+                    >
+                      {t("Change picture")}
+                    </Button>
+                  </>
+                )}
               </Stack>
             </Box>
           </Box>
