@@ -5,6 +5,10 @@ import { useNotification } from "../../context/notification-context";
 
 const PROFILE_QUERY_KEY = ["profile"];
 
+interface ProfileResponse extends ProfileInput {
+  usernameUpdatedAt: string;
+}
+
 export const useProfile = () => {
   const queryClient = useQueryClient();
   const { showNotification } = useNotification();
@@ -12,8 +16,8 @@ export const useProfile = () => {
   const { data: profile, isLoading } = useQuery({
     queryKey: PROFILE_QUERY_KEY,
     queryFn: async () => {
-      const response = await axiosClient.get("/profile");
-      return response.data as ProfileInput;
+      const response = await axiosClient.get<ProfileResponse>("/profile");
+      return response.data;
     },
   });
 
