@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom"; // Added import
 import { useAuth } from "../context/auth-context";
+import logo from "../assets/logo.png"; // Assuming you have a logo image
 
 // Add global type for handleLogout
 declare global {
@@ -73,7 +74,18 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
         position="sticky"
         color="inherit"
         elevation={0}
-        sx={{ px: 8, borderBottom: "1px solid #FFD500", top: 0, zIndex: 1200 }}
+        sx={{
+          px: {
+            xs: 1,
+            sm: 2,
+            md: 4,
+            lg: 6,
+            xl: 8,
+          },
+          borderBottom: "1px solid #FFD500",
+          top: 0,
+          zIndex: 1200,
+        }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           {/* Left side - Burger menu */}
@@ -88,19 +100,29 @@ function Navbar({ rtl, onToggleDirection }: NavbarProps) {
               <MenuIcon />
             </IconButton>
             <Typography
-              sx={{ fontWeight: "semibold", fontSize: "2rem" }}
+              sx={{
+                fontWeight: "semibold",
+                fontSize: "2rem",
+                display: { xs: "none", md: "block" },
+              }}
               color="primary"
             >
               {t("title")}
             </Typography>
+            <Box
+              component="img"
+              src={logo}
+              alt="Logo"
+              sx={{ m: 2, height: 50, display: { xs: "block", md: "none" } }}
+            />
           </Box>
           {/* Middle - Website name and logo */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Box
               component="img"
-              src="https://www.finegoldkwt.com/FineLogoNew.png"
+              src={logo}
               alt="Logo"
-              sx={{ m: 2, height: 50 }}
+              sx={{ m: 2, height: 50, display: { xs: "none", md: "block" } }}
             />
           </Box>{" "}
           {/* Right side - Icons and language button */}

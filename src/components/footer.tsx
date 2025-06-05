@@ -6,7 +6,6 @@ import {
   Stack,
   IconButton,
   Divider,
-  Paper,
   Avatar,
 } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -18,8 +17,10 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import logo from "../assets/logo.png"; // Adjust the path as necessary
 
 import { useTranslation } from "react-i18next";
+import MyBox from "./MyBox";
 
 function Footer() {
   const { t } = useTranslation();
@@ -40,12 +41,12 @@ function Footer() {
   ];
 
   return (
-    <Paper
+    <MyBox
       sx={{
         backgroundColor: "background.paper",
         pt: 6,
         pb: 2,
-        px: { xs: 2, md: 8 },
+        // px: { xs: 2, md: 8 },
         borderRadius: 0,
         boxShadow: "none",
       }}
@@ -110,8 +111,15 @@ function Footer() {
             <Stack spacing={2}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Avatar
-                  src="https://placehold.co/60x60/FFD700/000?text=Logo"
-                  sx={{ width: 60, height: 60, bgcolor: "#FFD700" }}
+                  src={logo}
+                  slotProps={{
+                    img: {
+                      sx: {
+                        objectFit: "contain",
+                      },
+                    },
+                  }}
+                  sx={{ width: 60, height: 60 }}
                 />
                 <Typography
                   variant="h6"
@@ -296,7 +304,7 @@ function Footer() {
           <br />
         </Typography>
       </Box>
-    </Paper>
+    </MyBox>
   );
 }
 

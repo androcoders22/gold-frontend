@@ -1,5 +1,9 @@
 import "./App.css";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  ThemeProvider,
+  createTheme,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import rtlCache from "./utils/rtlCache.ts";
 import defaultCache from "./utils/emotionCache.ts";
@@ -43,22 +47,24 @@ function App() {
 
   // Choose appropriate cache and theme direction
   const cache = rtl ? rtlCache : defaultCache;
-  const theme = createTheme({
-    direction: rtl ? "rtl" : "ltr",
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#FFD500",
-        light: "#FFF9C4",
-        dark: "#B28900",
+  const theme = responsiveFontSizes(
+    createTheme({
+      direction: rtl ? "rtl" : "ltr",
+      palette: {
+        mode: "dark",
+        primary: {
+          main: "#FFD500",
+          light: "#FFF9C4",
+          dark: "#B28900",
+        },
+        secondary: { main: "#AA00FF" },
+        background: { default: "#121212", paper: "#1e1e1e" },
       },
-      secondary: { main: "#AA00FF" },
-      background: { default: "#121212", paper: "#1e1e1e" },
-    },
-    typography: {
-      fontFamily: "Noto Kufi Arabic, Roboto, Arial, sans-serif",
-    },
-  });
+      typography: {
+        fontFamily: "Noto Kufi Arabic, Roboto, Arial, sans-serif",
+      },
+    }),
+  );
 
   return (
     <CacheProvider value={cache}>

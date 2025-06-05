@@ -1,15 +1,15 @@
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import MyBox from "../../MyBox";
 
 function PromoSection() {
   const { t } = useTranslation();
   return (
-    <Box
+    <MyBox
       sx={{
         position: "relative",
         overflow: "hidden",
         py: 5,
-        px: 15,
       }}
     >
       {/* Local Background Video */}
@@ -59,7 +59,16 @@ function PromoSection() {
           }}
         />
       </Box>
-      <Box sx={{ position: "relative", zIndex: 2 }}>
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 2,
+          textAlign: {
+            xs: "center",
+            sm: "left",
+          },
+        }}
+      >
         <Typography
           variant="subtitle1"
           sx={{
@@ -85,7 +94,15 @@ function PromoSection() {
         <Typography variant="body1" sx={{ color: "#B0B0B0", mb: 4 }}>
           {t("BEST GOLD WITH FINE GOLD")}
         </Typography>
-        <Stack spacing={3}>
+        <Stack
+          spacing={3}
+          sx={{
+            alignItems: {
+              xs: "center",
+              sm: "flex-start",
+            },
+          }}
+        >
           <Typography
             variant="h3"
             sx={{ color: "#FFD700", fontWeight: "bold" }}
@@ -96,13 +113,16 @@ function PromoSection() {
             variant="contained"
             color="primary"
             size="large"
-            sx={{ maxWidth: 180, fontWeight: "bold" }}
+            sx={{
+              maxWidth: 180,
+              fontWeight: "bold",
+            }}
           >
             {t("SHOP NOW")}
           </Button>
         </Stack>
       </Box>
-    </Box>
+    </MyBox>
   );
 }
 

@@ -2,6 +2,7 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import { goldData } from "../../data/goldData";
 import GoldPriceHighChart from "./gold-price-chart";
 import { useTranslation } from "react-i18next";
+import MyBox from "../MyBox";
 
 const GoldAndSilverBox = () => {
   const { t } = useTranslation();
@@ -147,17 +148,17 @@ const GoldPricesTable = () => {
 
 function GraphSection() {
   return (
-    <Box sx={{ mt: 3, pt: 5, px: 14, flexGrow: 1 }}>
+    <MyBox sx={{ mt: 3, pt: 5, flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid size={{ xs: 6, md: 5 }}>
+        <Grid size={{ xs: 12, md: 6, lg: 5 }}>
           <GoldAndSilverBox />
           <GoldPricesTable />
         </Grid>
-        <Grid size={{ xs: 6, md: 7 }}>
+        <Grid size={{ xs: 12, md: 6, lg: 7 }}>
           <GoldPriceHighChart />
         </Grid>
       </Grid>
-    </Box>
+    </MyBox>
   );
 }
 

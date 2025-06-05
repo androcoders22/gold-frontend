@@ -7,6 +7,7 @@ import {
   Box,
   Grid,
   Paper,
+  Stack,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import EmailIcon from "@mui/icons-material/Email";
@@ -23,7 +24,7 @@ const ContactUsPage: React.FC = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -159,42 +160,71 @@ const ContactUsPage: React.FC = () => {
           <Paper
             elevation={3}
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 10,
-              p: 3,
               backgroundColor: "background.default",
               borderRadius: 2,
             }}
           >
-            <Typography
-              variant="h6"
-              component="h2"
-              sx={{ fontWeight: "medium", color: "primary.main" }}
+            <Grid
+              container
+              spacing={2}
+              sx={{ p: 3, alignItems: { xs: "flex-start", md: "center" } }}
             >
-              {t("contact_us.info.title")}
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <LocationOnIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
-              <Typography variant="body1">
-                {t("contact_us.info.address_line1")}
-                <br />
-                {t("contact_us.info.address_line2")}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <PhoneIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
-              <Typography variant="body1">
-                {t("contact_us.info.phone")}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <EmailIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
-              <Typography variant="body1">
-                {t("contact_us.info.email")}
-              </Typography>
-            </Box>
+              <Grid
+                size={{
+                  xs: 12,
+                  sm: 5,
+                  md: 3,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  sx={{ fontWeight: "medium", color: "primary.main" }}
+                >
+                  {t("contact_us.info.title")}
+                </Typography>
+              </Grid>
+              <Grid
+                size={{
+                  xs: 12,
+                  sm: 7,
+                  md: 9,
+                }}
+              >
+                <Stack
+                  spacing={2}
+                  direction={{ xs: "column", md: "row" }}
+                  sx={{
+                    flex: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <LocationOnIcon
+                      color="primary"
+                      sx={{ mr: 2, fontSize: 40 }}
+                    />
+                    <Typography variant="body1">
+                      {t("contact_us.info.address_line1")}
+                      <br />
+                      {t("contact_us.info.address_line2")}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <PhoneIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
+                    <Typography variant="body1">
+                      {t("contact_us.info.phone")}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <EmailIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
+                    <Typography variant="body1">
+                      {t("contact_us.info.email")}
+                    </Typography>
+                  </Box>
+                </Stack>
+              </Grid>
+            </Grid>
           </Paper>
         </Box>
       </Container>

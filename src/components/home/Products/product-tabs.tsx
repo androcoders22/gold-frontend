@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Box, Typography, Tabs, Tab, Grid, Paper } from "@mui/material";
+import { Box, Typography, Tabs, Tab, Grid } from "@mui/material";
 import ProductCard from "./product-card";
 import { products } from "../../../data/goldData";
 import { useTranslation } from "react-i18next";
+import MyBox from "../../MyBox";
 
 function ProductTabs() {
   const { t } = useTranslation();
@@ -14,17 +15,14 @@ function ProductTabs() {
 
   // Filter products by category
   const filteredProducts = products.filter(
-    (product) => product.category === activeTab
+    (product) => product.category === activeTab,
   );
 
   return (
-    <Paper
-      elevation={0}
+    <MyBox
       sx={{
-        px: 14,
         pt: 4,
         pb: 10,
-        backgroundColor: "transparent",
         borderRadius: 0,
       }}
     >
@@ -82,7 +80,7 @@ function ProductTabs() {
           </Grid>
         )}
       </Grid>
-    </Paper>
+    </MyBox>
   );
 }
 

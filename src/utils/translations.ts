@@ -14,7 +14,7 @@ const translations = {
       Faq: "FAQ",
       "About Us": "About Us",
       "Contact Us": "Contact Us",
-      Copyright: "© 2023 Fine Gold Jewellery. All rights reserved.",
+      Copyright: "© 2025 Fine Gold Jewellery. All rights reserved.",
       "Price per ounce": "Price per ounce",
       GOLD: "GOLD",
       "CFDS ON GOLD (US$ / OZ)": "CFDS ON GOLD (US$ / OZ)",
@@ -155,7 +155,7 @@ const translations = {
       Faq: "الأسئلة الشائعة",
       "About Us": "معلومات عنا",
       "Contact Us": "اتصل بنا",
-      Copyright: "© 2023 مجوهرات فاين جولد. جميع الحقوق محفوظة.",
+      Copyright: "© 2025 مجوهرات فاين جولد. جميع الحقوق محفوظة.",
       "Price per ounce": "سعر الأونصة",
       GOLD: "ذهب",
       "CFDS ON GOLD (US$ / OZ)":
