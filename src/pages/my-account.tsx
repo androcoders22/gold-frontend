@@ -65,7 +65,6 @@ const MyAccountPage: React.FC = () => {
   }, [profile]);
 
   const onSubmit = (data: ProfileInput) => {
-    console.log("Profile data submitted:", data);
     updateProfile(data);
   };
 
@@ -131,7 +130,8 @@ const MyAccountPage: React.FC = () => {
               <Avatar
                 src={
                   previewUrl ||
-                  profile?.imageUrl ||
+                  (profile?.imageUrl &&
+                    `${import.meta.env.VITE_BACKEND_API_URL}/${profile.imageUrl}`) ||
                   "https://via.placeholder.com/150"
                 }
                 sx={{
